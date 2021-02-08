@@ -74,7 +74,7 @@ app.get("/", function(req,res)
     //if existing list found or passed on from redirect(<List Name>) -> render page & show the list
       res.render("list", {listTitle:"Today", newListItems:foundItems});
     }
-    
+
   });
 
 
@@ -182,7 +182,11 @@ app.get("/about", function(req,res){
   res.render("about");
 });
 
-/*app runs on localhost:3000*/
-  app.listen(3000, function(){
-    console.log("Server is running on port 3000");
+/*app runs on Heroku assigned port or localhost:3000*/
+let port = process.env.PORT ;
+if (port == null || port =="") {
+  port = 3000;
+}
+  app.listen(port, function(){
+    console.log("Server is running");
   });
