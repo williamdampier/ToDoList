@@ -1,7 +1,6 @@
 {
   "name": "to-do-list",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,5 +13,15 @@
     "express": "^4.17.1",
     "lodash": "^4.17.20",
     "mongoose": "^5.11.15"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamdampier/ToDoList.git"
+  },
+  "bugs": {
+    "url": "https://github.com/williamdampier/ToDoList/issues"
+  },
+  "homepage": "https://github.com/williamdampier/ToDoList#readme",
+  "description": ""
 }

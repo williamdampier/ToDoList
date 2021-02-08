@@ -18,7 +18,7 @@ app.use(express.static('public')); //enable publuc folder via express to access 
 
 
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }); //connect to DB
+mongoose.connect("mongodb+srv://adminvladi:testing135@cluster0.cctbj.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }); //connect to DB
 /*-------------------------------------------------------------------------------------*/
 
 /* Default Items list Schema init*/
@@ -66,13 +66,15 @@ app.get("/", function(req,res)
   Item.find({}, function (err, foundItems){
     if (foundItems.length === 0) {
       Item.insertMany(defaultItems, function(err){
-        if (err) {console.log(err);} else {console.log("Successfully added items to DB");}
+        if (!err) {console.log("Successfully added items to DB");} else {console.log(err);}
+
       });
     }
     else {
     //if existing list found or passed on from redirect(<List Name>) -> render page & show the list
       res.render("list", {listTitle:"Today", newListItems:foundItems});
     }
+    
   });
 
 
@@ -98,9 +100,13 @@ if (listName === "Today") {
   } else {
     //Otherwise, take List name from a title and add new item to that list
     List.findOne({name: listName}, function(err, foundList){
-      foundList.items.push(item);
-      foundList.save();
-      res.redirect("/" + listName); //redirect to root -> for render function
+      if (!err){
+        foundList.items.push(item);
+        foundList.save();
+        res.redirect("/" + listName); //redirect to root -> for render function
+      } else {console.log(err);}
+
+
     });
   }
   });
@@ -115,12 +121,13 @@ if (listName === "Today") //check if we are working with default list
 {
   Item.findByIdAndRemove(checkedItemId, function(err) //dig into default List and find item by id, taken from checkbox value="<%=item._id%>"
   {
-    if (err) {
-      console.log(err);
-    } else
-    {
+    if (!err) {
       console.log("Item removed");
       res.redirect("/"); //after item is deleted redirect to main
+
+    } else
+    {
+      console.log(err);
     }
   }
     );
@@ -166,7 +173,7 @@ app.get("/:customListName", function (req,res)
       {
         res.render("list", {listTitle:foundList.name, newListItems:foundList.items}); //if List does exist -> redirect to list page passing Listname a a Title and fill with Items from DB
       }
-    }
+    } else {console.log(err);}
   });
 
 });
