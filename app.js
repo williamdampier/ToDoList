@@ -18,7 +18,7 @@ app.use(express.static('public')); //enable publuc folder via express to access 
 
 
 
-mongoose.connect("mongodb+srv://adminvladi:testing135@cluster0.cctbj.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }); //connect to DB
+mongoose.connect("mongodb+srv://adminvladi:pswd@cluster0.cctbj.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }); //connect to DB
 /*-------------------------------------------------------------------------------------*/
 
 /* Default Items list Schema init*/
